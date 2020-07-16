@@ -72,5 +72,5 @@ client.on('message', msg => {
 });
 
 // login with token in config.json
-client.login()
+client.login(process.env.CLIENT_TOKEN)
 
