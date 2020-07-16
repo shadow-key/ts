@@ -1,12 +1,14 @@
-// Run dotenv
+// Run dotenv IMPORTANT if pushing to remote repository
 require('dotenv').config();
+
+// file system module
 const fs = require('fs');
 // const config = require('./config.json');
 // const { prefix, author } = require('./config.json');
 
 const Discord = require('discord.js');
-const bot = new Discord.Client();
-bot.commands = new Discord.Collection();
+const client = new Discord.Client();
+client.commands = new Discord.Collection();
 const cooldowns = new Discord.Collection();
 
 // get commands from all .js files in commands folder
@@ -14,25 +16,25 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
-	bot.commands.set(command.name, command);
+	client.commands.set(command.name, command);
 }
 
-// display once in console after bot logs in
-bot.once('ready', () => {
-    console.log(`Logged in as ${bot.user.tag}!`);
+// display once in console after client logs in
+client.once('ready', () => {
+    console.log(`Logged in as ${client.user.tag}!`);
 });
 
-bot.on('message', msg => {
-	// ignore messages with no prefix or from other bots
-	if (!msg.content.startsWith(process.env.PREFIX) || msg.author.bot) return;
+client.on('message', msg => {
+	// ignore messages with no prefix or from other clients
+	if (!msg.content.startsWith(process.env.PREFIX) || msg.author.client) return;
 
 	const args = msg.content.slice(process.env.PREFIX.length).trim().split(/ +/);
 	const commandName = args.shift().toLowerCase();
 
 	// ignore if command does not exist
-	if (!bot.commands.has(commandName)) return;
+	if (!client.commands.has(commandName)) return;
 
-	const command = bot.commands.get(commandName);
+	const command = client.commands.get(commandName);
 
 	if (command.args && !args.length) {
 		let reply = `You didn't provide any arguments, ${msg.author}!`;
@@ -70,5 +72,5 @@ bot.on('message', msg => {
 });
 
 // login with token in config.json
-bot.login(process.env.BOT_TOKEN)
+client.login()
 
