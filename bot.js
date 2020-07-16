@@ -1,9 +1,8 @@
 // Run dotenv
-// require('dotenv').config();
-
+require('dotenv').config();
 const fs = require('fs');
 // const config = require('./config.json');
-const { prefix, token } = require('./config.json');
+const { prefix, author } = require('./config.json');
 
 const Discord = require('discord.js');
 const bot = new Discord.Client();
@@ -71,5 +70,5 @@ bot.on('message', msg => {
 });
 
 // login with token in config.json
-bot.login(token)
+bot.login(process.env.BOT_TOKEN)
 

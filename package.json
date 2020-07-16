@@ -1,9 +1,9 @@
 {
-  "name": "greeter-bot",
+  "name": "time-sullet",
   "version": "1.0.0",
   "description": "My First Discord Bot",
   "main": "bot.js",
-  "author": "Your Name",
+  "author": "shadow-key",
   "dependencies": {
     "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
     "discord.js": "^12.2.0",
@@ -12,7 +12,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node bot.js"
   },
   "keywords": [],
   "license": "ISC"
