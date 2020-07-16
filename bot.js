@@ -2,7 +2,7 @@
 require('dotenv').config();
 const fs = require('fs');
 // const config = require('./config.json');
-const { prefix, author } = require('./config.json');
+// const { prefix, author } = require('./config.json');
 
 const Discord = require('discord.js');
 const bot = new Discord.Client();
@@ -24,9 +24,9 @@ bot.once('ready', () => {
 
 bot.on('message', msg => {
 	// ignore messages with no prefix or from other bots
-	if (!msg.content.startsWith(prefix) || msg.author.bot) return;
+	if (!msg.content.startsWith(process.env.PREFIX) || msg.author.bot) return;
 
-	const args = msg.content.slice(prefix.length).trim().split(/ +/);
+	const args = msg.content.slice(process.env.PREFIX.length).trim().split(/ +/);
 	const commandName = args.shift().toLowerCase();
 
 	// ignore if command does not exist
@@ -38,7 +38,7 @@ bot.on('message', msg => {
 		let reply = `You didn't provide any arguments, ${msg.author}!`;
 
 		if (command.usage) {
-			reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
+			reply += `\nThe proper usage would be: \`${process.env.PREFIX}${command.name} ${command.usage}\``;
 		}
 
 		return msg.channel.send(reply);
